@@ -5,18 +5,18 @@ import numpy as np
 #from tensorflow.python.keras.models import Sequential 
 
 
-#1.데이터 
+#1.데이터 (전처리 데이터 정제된:모델에 적합한 데이터)
 x = np.array([1,2,3])  #np열
 y = np.array([1,2,3])
 #요 데이터를 훈련해서 최소의 loss를 만들어보자. 
 
 #2. 모델 구성
 model = Sequential()   #S는 대문자 그래서 클래서    시퀀셜이라는 클래스를 모델로 정의 하겠다
-model.add(Dense(5, input_dim=1)) #(한개의 로드가 들어간다 인풋딤) 한개의 차원 노드는 아웃풋 한줄이 하나의 레이어  괄호 앞에 아웃풋 뒤가 인풋
+model.add(Dense(5, input_dim=1)) #(한개의 노드가 들어간다 인풋딤) 한개의 차원 노드는 아웃풋 한줄이 하나의 레이어  괄호 앞에 아웃풋 뒤가 인풋
 model.add(Dense(50))  #시퀀셜이기 때문에 인풋을 쓸 필요가 없어
-model.add(Dense(160))
-model.add(Dense(180))
-model.add(Dense(270))
+model.add(Dense(80))
+model.add(Dense(100))
+model.add(Dense(120))
 model.add(Dense(180))
 model.add(Dense(90))
 model.add(Dense(1))  #인공신경망 완성  (아웃풋)
