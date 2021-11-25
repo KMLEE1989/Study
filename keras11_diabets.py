@@ -32,7 +32,7 @@ model.add(Dense(1))
 
 
 model.compile(loss='mse', optimizer='adam')
-model.fit(x_train, y_train, epochs=30, batch_size=10,verbose=0)
+model.fit(x_train, y_train, epochs=30, batch_size=10,verbose=0) #역피라미드, 에포크 줄이고 train size=08 random_state=49로 
 
 loss=model.evaluate(x_test, y_test) 
 print('loss :', loss)
