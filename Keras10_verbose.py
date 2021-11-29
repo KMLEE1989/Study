@@ -30,7 +30,7 @@ model.add(Dense(1))
 model.compile(loss='mse', optimizer='adam')
 
 start=time.time() 
-model.fit(x,y, epochs=1000, batch_size=1, verbose=4)
+model.fit(x,y, epochs=1000, batch_size=1, verbose=3)
 end=time.time() - start
 print("걸린시간:", end)
 

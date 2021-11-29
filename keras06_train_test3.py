@@ -1,12 +1,13 @@
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense 
 import numpy as np 
+from sklearn.model_selection import train_test_split
 
 #1. 데이터
 x=np.array(range(100))  #0~99 (연산의 가지 파라미터)
 y=np.array(range(1,101)) # 1~100    (bias= 1 why)
 
-from sklearn.model_selection import train_test_split
+
 x_train, x_test, y_train, y_test = train_test_split(x,y,
          train_size=0.7, shuffle=True, random_state=66)
 

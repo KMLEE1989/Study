@@ -32,7 +32,7 @@ model.add(Dense(1))
 
 
 model.compile(loss='mse', optimizer='adam')
-model.fit(x_train, y_train, epochs=30, batch_size=10,verbose=0) #역피라미드, 에포크 줄이고 train size=08 random_state=49로 
+model.fit(x_train, y_train, epochs=45, batch_size=10,verbose=0)
 
 loss=model.evaluate(x_test, y_test) 
 print('loss :', loss)
@@ -48,5 +48,5 @@ print('r2스코어:', r2)
 #r2스코어: 0.6031717410349849 
 
 #0.62  이상
-#R2 
+#R2   #역피라미드 epochs=30 
 #70

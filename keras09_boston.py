@@ -4,7 +4,7 @@
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 import numpy as np 
-import matplotlib.pyplot as plt 
+#import matplotlib.pyplot as plt 
 from sklearn.model_selection import train_test_split
 from sklearn.datasets import load_boston 
 
@@ -28,25 +28,24 @@ x_train, x_test, y_train, y_test= train_test_split(x,y,
 
 
 model = Sequential() 
-model.add(Dense(5, input_dim=13))
+model.add(Dense(20, input_dim=13))
+model.add(Dense(17))
+model.add(Dense(14))
 model.add(Dense(11))
-model.add(Dense(18))
-model.add(Dense(32))
-model.add(Dense(46))
-model.add(Dense(55))
-model.add(Dense(60))
-model.add(Dense(52))
-model.add(Dense(48))
-model.add(Dense(40))
-model.add(Dense(35))
-model.add(Dense(24))
-model.add(Dense(18))
+model.add(Dense(10))
+model.add(Dense(9))
 model.add(Dense(8))
+model.add(Dense(7))
+model.add(Dense(6))
+model.add(Dense(5))
+model.add(Dense(4))
+model.add(Dense(3))
+model.add(Dense(2))
 model.add(Dense(1))
 
 
 model.compile(loss='mse', optimizer='adam')
-model.fit(x_train, y_train, epochs=700, batch_size=13)
+model.fit(x_train, y_train, epochs=800, batch_size=13)
 
 
 loss=model.evaluate(x_test, y_test) 
@@ -60,4 +59,4 @@ print('r2스코어:', r2)
 
 #loss : 17.10
 #r2스코어: 0.79
-
+#
