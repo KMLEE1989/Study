@@ -66,7 +66,7 @@ results=model.predict(x_test[:5])
 print(y_test[:5])
 print(results)
 
-미적용
+#미적용
 # loss : [0.9680310487747192, 0.5950540900230408]
 # r2스코어: 0.13811328555368868
 
