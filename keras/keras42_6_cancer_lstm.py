@@ -61,6 +61,10 @@ print('loss :', loss)
 y_predict= model.predict(x_test)
 print(y_predict)
 
+#미적용
+# loss : [0.24079976975917816, 0.9385964870452881]
+# r2스코어: 0.7847886866899058
+
 
 # LSTM
 # loss : [0.16739928722381592, 0.9473684430122375]
