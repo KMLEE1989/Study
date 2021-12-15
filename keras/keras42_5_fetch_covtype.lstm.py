@@ -62,6 +62,10 @@ results=model.predict(x_test[:10])
 print(y_test[:10])
 print(results)
 
+#
+#  loss :  0.056066203862428665
+# r2스코어 :  0.2545237336560864
+
 # LSTM
 # loss : 1.080786943435669
 # accuracy: 0.4941352605819702
