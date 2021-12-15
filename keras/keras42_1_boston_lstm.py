@@ -42,6 +42,10 @@ from sklearn.metrics import r2_score
 r2=r2_score(y_test, y_predict)
 print('r2스코어:', r2)
 
+# 미적용
+# loss : 46.80183410644531
+# r2스코어: 0.4335091058466005
+
 # LSTM
 # loss : 17.895166397094727
 # r2스코어: 0.7833963102866099
