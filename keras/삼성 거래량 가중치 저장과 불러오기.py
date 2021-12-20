@@ -109,9 +109,9 @@ x1_train, x1_test, x2_train, x2_test, y1_train, y1_test, y2_train, y2_test = tra
 # x1=scaler.transform(x1)
 # x2=scaler.transform(x2)
 
-from tensorflow.keras.models import Model
+from tensorflow.keras.models import Model,load_model
 from tensorflow.keras.layers import Dense, Input
-
+'''
 input1=Input(shape=(5,1))
 dense1=LSTM(5, activation='relu', name='dense1')(input1)
 dense2=Dense(10, activation='relu', name='dense2')(dense1)
@@ -175,9 +175,9 @@ print("걸린시간 :" , round(end, 3), '초')
 
 # print(df2.columns)
 
-model.save_weights("../study/_save/samsung stock price 거래량 제출.h5")
-
-#mode=load_model("../study/_save/samsung stock price.h5")
+#model.save_weights("../study/_save/samsung stock price 거래량 제출.h5")
+'''
+model=load_model("../Study/_ModelCheckPoint/k26_1220_1900_0126-39660017418240.0000.hdf5")
 
 loss=model.evaluate([x1_test, x2_test], [y1_test, y2_test], batch_size=1)
 
@@ -191,5 +191,3 @@ y1_pred,y2_pred=model.predict([x1, x2])
 print('삼성예측거래량: ' , y1_pred[-1][-1])
 print('키움예측거래량: ' , y2_pred[-1][-1])
 
-
-        
