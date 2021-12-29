@@ -26,7 +26,7 @@ model.add(Dense(16, activation='relu'))
 model.add(Dropout(0.5))
 model.add(Dense(8, activation='relu'))
 model.add(Dense(4, activation='relu'))
-model.add(Dense(1, activation='sigmoid'))
+model.add(Dense(2, activation='sigmoid'))
 
 #3. 컴파일, 훈련
 model.compile(loss='binary_crossentropy', optimizer='adam' , metrics=['accuracy'])
@@ -87,3 +87,44 @@ plt.show()
 # val_loss:  2.6422226428985596
 # accuracy:  0.7142857313156128
 # val_accuracy:  0.3333333432674408
+
+
+import numpy as np
+import pandas as pd
+
+from tensorflow.keras.models import Model, load_model
+from tensorflow.keras.preprocessing import image
+import matplotlib.pyplot as plt
+
+pic_path = 'D:\\_data\\image\\NA\\JAE HO LEE.jpg'
+model_path = 'D:\\Study\\_ModelCheckPoint\\k26_1228_1902_0004-0.6925.hdf5'
+
+def load_my_image(img_path,show=False):
+    img = image.load_img(img_path, target_size=(150,150))
+    img_tensor = image.img_to_array(img)
+    img_tensor = np.expand_dims(img_tensor, axis = 0)
+    img_tensor /=255.
+    
+    if show:
+        plt.imshow(img_tensor[0])    
+        plt.append('off')
+        plt.show()
+    
+    return img_tensor
+
+if __name__ == '__main__':
+    model = load_model(model_path)
+    new_img = load_my_image(pic_path)
+    pred = model.predict(new_img)
+    dog = pred[0][0]*100
+    cat = pred[0][1]*100
+    if cat > dog:
+        print(f"당신은 {round(cat,2)} % 확률로 고양이 입니다")
+    else:
+        print(f"당신은 {round(dog,2)} % 확률로 개 입니다")
+        
+# loss:  0.23094747960567474
+# val_loss:  0.054401058703660965
+# accuracy:  0.8571428656578064
+# val_accuracy:  1.0
+# 당신은 50.17 % 확률로 고양이 입니다
