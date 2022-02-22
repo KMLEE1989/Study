@@ -18,6 +18,7 @@ from tensorflow.keras.layers import Dense, Flatten, Dropout
 from tensorflow.keras.layers import GlobalAveragePooling2D
 from tensorflow.keras.applications import VGG16, VGG19, ResNet50
 from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler, MaxAbsScaler
+from tensorflow.keras.applications.resnet50 import preprocess_input, decode_predictions
 import numpy as np
 
 (x_train, y_train), (x_test, y_test) = cifar100.load_data()
@@ -29,6 +30,9 @@ from tensorflow.keras.utils import to_categorical
 y_train = to_categorical(y_train)
 y_test = to_categorical(y_test)
 # print(y_train.shape)   # (50000, 10)
+
+x_train = preprocess_input(x_train)
+x_test = preprocess_input(x_test)
 
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x_train, y_train,
@@ -57,13 +61,13 @@ x_test = scaler.transform(x_test.reshape(m,-1)).reshape(x_test.shape)
 resnet50 = ResNet50(weights='imagenet', include_top=False, input_shape=(32,32,3))
 
 # vgg16.summary()
-resnet50.trainable = False    # 가중치를 동결시킨다
+resnet50.trainable = True    # 가중치를 동결시킨다
 # print(vgg16.weights)
 
 model = Sequential()
 model.add(resnet50)
-#model.add(Flatten())
-model.add(GlobalAveragePooling2D())
+model.add(Flatten())
+#model.add(GlobalAveragePooling2D())
 model.add(Dense(64, activation='relu'))
 model.add(Dropout(0.2)) 
 model.add(Dense(32, activation='relu'))
@@ -116,3 +120,8 @@ print('걸린시간 :', round(end,4))
 # loss :  4.5374
 # accuracy :  0.0182
 # 걸린시간 : 88.9729
+######################################## 5. preprocessing input ##########################################################
+# learning_rate :  0.0001
+# loss :  3.3554
+# accuracy :  0.4427
+# 걸린시간 : 237.1173
