@@ -17,6 +17,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Flatten, Dropout
 from tensorflow.keras.layers import GlobalAveragePooling2D
 from tensorflow.keras.applications import VGG16, VGG19
+from tensorflow.keras.applications.resnet50 import preprocess_input, decode_predictions
 from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler, MaxAbsScaler
 import numpy as np
 
@@ -29,6 +30,9 @@ from tensorflow.keras.utils import to_categorical
 y_train = to_categorical(y_train)
 y_test = to_categorical(y_test)
 # print(y_train.shape)   # (50000, 10)
+
+x_train = preprocess_input(x_train)
+x_test = preprocess_input(x_test)
 
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x_train, y_train,
@@ -57,13 +61,13 @@ x_test = scaler.transform(x_test.reshape(m,-1)).reshape(x_test.shape)
 vgg19 = VGG19(weights='imagenet', include_top=False, input_shape=(32,32,3))
 
 # vgg16.summary()
-vgg19.trainable = False    # 가중치를 동결시킨다
+vgg19.trainable = True    # 가중치를 동결시킨다
 # print(vgg16.weights)
 
 model = Sequential()
 model.add(vgg19)
-#model.add(Flatten())
-model.add(GlobalAveragePooling2D())
+model.add(Flatten())
+#model.add(GlobalAveragePooling2D())
 model.add(Dense(64, activation='relu'))
 model.add(Dropout(0.2)) 
 model.add(Dense(32, activation='relu'))
@@ -75,7 +79,7 @@ model.add(Dense(100, activation='softmax'))
 from tensorflow.keras.optimizers import Adam, Adadelta, Adagrad, Adamax
 from tensorflow.keras.optimizers import RMSprop, SGD, Nadam
 
-learning_rate = 0.0001
+learning_rate = 0.001
 optimizer = Adam(lr=learning_rate)
 model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy']) 
 
@@ -116,3 +120,9 @@ print('걸린시간 :', round(end,4))
 # loss :  3.877
 # accuracy :  0.0939
 # 걸린시간 : 77.6075
+
+######################################### 5. preprocessing input ##########################################################
+# learning_rate :  0.001
+# loss :  4.6057
+# accuracy :  0.0103
+# 걸린시간 : 205.1027
