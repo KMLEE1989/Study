@@ -18,6 +18,7 @@ from tensorflow.keras.layers import Dense, Flatten, Dropout
 from tensorflow.keras.layers import GlobalAveragePooling2D
 from tensorflow.keras.applications import VGG16, VGG19, ResNet101, DenseNet121
 from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler, MaxAbsScaler
+from tensorflow.keras.applications.resnet50 import preprocess_input, decode_predictions
 import numpy as np
 
 (x_train, y_train), (x_test, y_test) = cifar100.load_data()
@@ -29,6 +30,9 @@ from tensorflow.keras.utils import to_categorical
 y_train = to_categorical(y_train)
 y_test = to_categorical(y_test)
 # print(y_train.shape)   # (50000, 10)
+
+x_train = preprocess_input(x_train)
+x_test = preprocess_input(x_test)
 
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x_train, y_train,
@@ -57,7 +61,7 @@ x_test = scaler.transform(x_test.reshape(m,-1)).reshape(x_test.shape)
 densenet121 = DenseNet121(weights='imagenet', include_top=False, input_shape=(32,32,3))
 
 # vgg16.summary()
-densenet121.trainable = False    # 가중치를 동결시킨다
+densenet121.trainable = True    # 가중치를 동결시킨다
 # print(vgg16.weights)
 
 model = Sequential()
@@ -116,3 +120,8 @@ print('걸린시간 :', round(end,4))
 # loss :  3.6171
 # accuracy :  0.1368
 # 걸린시간 : 116.2725
+######################################## 5. preprocessing input ##########################################################
+# learning_rate :  0.0001
+# loss :  2.9218
+# accuracy :  0.3546
+# 걸린시간 : 287.6978
