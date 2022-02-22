@@ -5,6 +5,7 @@ import numpy as np
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.applications import VGG16, VGG19, ResNet101, DenseNet121, EfficientNetB0
 from tensorflow.keras.layers import GlobalAveragePooling2D
+from tensorflow.keras.applications.resnet50 import preprocess_input, decode_predictions
 
 train_datagen = ImageDataGenerator(
     rescale=1./255, 
@@ -40,6 +41,9 @@ x_test = xy_test[0][0]
 y_test = xy_test[0][1]
 #print(x_train.shape, y_train.shape) # (1027, 100, 100, 3) (1027,)
 #print(x_test.shape, y_test.shape) #(1027, 100, 100, 3) (1027,)
+
+x_train = preprocess_input(x_train)
+x_test = preprocess_input(x_test)
 
 augment_size = 1500
 randidx = np.random.randint(x_train.shape[0], size = augment_size)
@@ -104,4 +108,7 @@ a = accuracy_score(y_test, y_predict)
 print('accuracy score:', a)
 
 # loss:  [0.651674211025238, 0.5170398950576782]
+# accuracy score: 0.48685491723466406
+
+# loss:  [0.7364497184753418, 0.4819863736629486]
 # accuracy score: 0.48685491723466406
