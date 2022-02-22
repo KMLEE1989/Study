@@ -18,6 +18,7 @@ from tensorflow.keras.layers import Dense, Flatten, Dropout
 from tensorflow.keras.layers import GlobalAveragePooling2D
 from tensorflow.keras.applications import VGG16, VGG19, ResNet101
 from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler, MaxAbsScaler
+from tensorflow.keras.applications.resnet50 import preprocess_input, decode_predictions
 import numpy as np
 
 (x_train, y_train), (x_test, y_test) = cifar100.load_data()
@@ -29,6 +30,9 @@ from tensorflow.keras.utils import to_categorical
 y_train = to_categorical(y_train)
 y_test = to_categorical(y_test)
 # print(y_train.shape)   # (50000, 10)
+
+x_train = preprocess_input(x_train)
+x_test = preprocess_input(x_test)
 
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x_train, y_train,
@@ -62,8 +66,8 @@ resnet101.trainable = True    # 가중치를 동결시킨다
 
 model = Sequential()
 model.add(resnet101)
-#model.add(Flatten())
-model.add(GlobalAveragePooling2D())
+model.add(Flatten())
+#model.add(GlobalAveragePooling2D())
 model.add(Dense(64, activation='relu'))
 model.add(Dropout(0.2)) 
 model.add(Dense(32, activation='relu'))
@@ -96,23 +100,28 @@ print('accuracy : ', round(acc,4))
 print('걸린시간 :', round(end,4))
 
 
-######################################## 1. vgg19 trainable : True, Flatten ###############################################
+######################################## 1. ResNet101 trainable : True, Flatten ###############################################
 # learning_rate :  0.0001
 # loss :  3.9636
 # accuracy :  0.419
 # 걸린시간 : 419.4084
-######################################## 2. vgg19 trainable : False, Flatten ###############################################
+######################################## 2. ResNet101 : False, Flatten ###############################################
 # learning_rate :  0.0001
 # loss :  4.5323
 # accuracy :  0.0169
 # 걸린시간 : 162.5846
-######################################## 3. vgg19 trainable : True, GAP ###############################################
+######################################## 3. ResNet101 : True, GAP ###############################################
 # learning_rate :  0.0001
 # loss :  3.6736
 # accuracy :  0.1476
 # 걸린시간 : 188.3779
-######################################## 4. vgg19 trainable : False, GAP ###############################################
+######################################## 4. ResNet101 : False, GAP ###############################################
 # learning_rate :  0.0001
 # loss :  5.7067
 # accuracy :  0.3988
 # 걸린시간 : 424.8629
+######################################## 5. preprocessing input ##########################################################
+# learning_rate :  0.0001
+# loss :  4.5019
+# accuracy :  0.4131
+# 걸린시간 : 422.3497
